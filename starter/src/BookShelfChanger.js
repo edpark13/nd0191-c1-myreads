@@ -1,26 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 
 const BookShelfChanger = ({ shelf, onUpdateBook }) => {
   const [value, setValue] = useState(shelf);
-
-  // const handleChange = (event) => {
-  //   event.preventDefault();
-  //   console.log(event.target.value)
-  //   console.log(value)
-  //   setValue(event.target.value);
-  //   console.log(value)
-  //   onUpdateBook(event.target.value);
-  // }
 
   const handleChange = (event) => {
     const newValue = event.target.value;
     setValue(newValue);
     onUpdateBook(newValue);
   }
-
-  // useEffect(() => {
-  //   console.log(value)
-  // }, [value])
 
   return (
     <div className="book-shelf-changer">
@@ -35,6 +23,11 @@ const BookShelfChanger = ({ shelf, onUpdateBook }) => {
       </select>
     </div>
   )
+}
+
+BookShelfChanger.propTypes = {
+  shelf: PropTypes.string.isRequired,
+  onUpdateBook: PropTypes.func.isRequired
 }
 
 export default BookShelfChanger;

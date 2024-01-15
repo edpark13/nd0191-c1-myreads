@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import * as BooksAPI from "./BooksAPI";
 import BookShelfChanger from "./BookShelfChanger";
-
 
 const Book = ({ book, onChangeShelf }) => {
   const updateShelf = (newShelf) => {
@@ -33,6 +32,11 @@ const Book = ({ book, onChangeShelf }) => {
       </div>
     </li>
   )
+}
+
+Book.propTypes = {
+  book: PropTypes.array.isRequired,
+  onChangeShelf: PropTypes.func
 }
 
 export default Book;
