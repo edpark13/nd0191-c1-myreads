@@ -4,6 +4,7 @@ const Bookshelf = ({ title, books, onChangeShelf }) => {
 
   return (
     <div className="bookshelf">
+      {console.log("BookShelf", books)}
       <h2 className="bookshelf-title">{title}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
