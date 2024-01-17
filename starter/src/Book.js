@@ -1,15 +1,9 @@
 import PropTypes from "prop-types";
-import * as BooksAPI from "./BooksAPI";
 import BookShelfChanger from "./BookShelfChanger";
 
 const Book = ({ book, onChangeShelf }) => {
   const updateShelf = (newShelf) => {
-    async function updateBook(newShelf) {
-      await BooksAPI.update(book, newShelf);
-    }
-
     onChangeShelf(book, newShelf);
-    updateBook(newShelf);
   }
 
   return (
@@ -28,7 +22,7 @@ const Book = ({ book, onChangeShelf }) => {
           <BookShelfChanger shelf={book.shelf} onUpdateBook={updateShelf}/>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.author}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
     </li>
   )

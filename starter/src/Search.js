@@ -3,17 +3,21 @@ import { useState } from "react";
 import * as BooksAPI from './BooksAPI.js'
 import Bookshelf from "./Bookshelf.js";
 
-const Search = () => {
+const Search = ({ onChangeShelf }) => {
   const [books, setBooks] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  const [query, setQuery] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    searchBooks()
-  }
-
-  async function searchBooks() {
-    setBooks(await BooksAPI.search(searchValue, 20));
+  async function searchBooks(newQuery) {
+    if (!newQuery) {
+      return;
+    }
+    setQuery(newQuery);
+    const result = await BooksAPI.search(newQuery, 20);
+    if (!result) {
+      console.log("No books returned");
+      return;
+    }
+    setBooks(result)
   }
 
   return (
@@ -26,17 +30,18 @@ const Search = () => {
           Close
         </Link>
         <div className="search-books-input-wrapper">
-          <form onSubmit={handleSubmit}>
+          <form>
             <input
               type="text"
               placeholder="Search by title, author, or ISBN"
               name="search"
-              onChange={e => setSearchValue(e.target.value)}
+              value={query}
+              onChange={e => searchBooks(e.target.value)}
             />
           </form>
         </div>
       </div>
-      <Bookshelf title="Search Results" books={books} onChangeShelf={(e) => {console.log(e)}} />
+      <Bookshelf title="Search Results" books={books} onChangeShelf={onChangeShelf} />
     </div>
   )
 }
