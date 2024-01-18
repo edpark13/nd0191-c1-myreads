@@ -6,6 +6,14 @@ const Book = ({ book, onChangeShelf }) => {
     onChangeShelf(book, newShelf);
   }
 
+  if (!book.imageLinks) {
+    book.imageLinks.thumbnail = "";
+  }
+
+  if (!book.shelf) {
+    book.shelf = "None";
+  }
+
   return (
     <li key={book.id}>
       <div className="book">
@@ -16,7 +24,7 @@ const Book = ({ book, onChangeShelf }) => {
               width: 128,
               height: 193,
               backgroundImage:
-                `url(${book.imageLinks.thumbnail})`,
+              `url(${book.imageLinks.thumbnail})`,
             }}
           ></div>
           <BookShelfChanger shelf={book.shelf} onUpdateBook={updateShelf}/>
@@ -29,7 +37,7 @@ const Book = ({ book, onChangeShelf }) => {
 }
 
 Book.propTypes = {
-  book: PropTypes.array.isRequired,
+  book: PropTypes.object.isRequired,
   onChangeShelf: PropTypes.func
 }
 

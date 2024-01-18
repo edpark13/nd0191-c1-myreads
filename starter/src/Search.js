@@ -12,10 +12,10 @@ const Search = ({ onChangeShelf }) => {
       return;
     }
     setQuery(newQuery);
-    const result = await BooksAPI.search(newQuery, 20);
-    if (!result) {
+    let result = await BooksAPI.search(newQuery, 20);
+    if (result.error) {
       console.log("No books returned");
-      return;
+      result = [];
     }
     setBooks(result)
   }
