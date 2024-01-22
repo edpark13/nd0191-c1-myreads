@@ -3,12 +3,17 @@ import { useState } from "react";
 import * as BooksAPI from './BooksAPI.js'
 import Bookshelf from "./Bookshelf.js";
 
-const Search = ({ onChangeShelf }) => {
+const Search = ({ onChangeShelf, currentlyReading, wantToRead, read }) => {
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState("");
 
+  const currentlyReadingIds = currentlyReading.map(book => book.id);
+  const wantToReadIds = wantToRead.map(book => book.id);
+  const readIds = read.map(book => book.id);
+
   async function searchBooks(newQuery) {
     if (newQuery === "") {
+      setQuery("");
       return setBooks([]);
     }
     setQuery(newQuery);
@@ -17,7 +22,19 @@ const Search = ({ onChangeShelf }) => {
       console.log("No books returned");
       return setBooks([]);
     }
-    setBooks(result)
+    const books = result.map(book => {
+      if (currentlyReadingIds.includes(book.id)) {
+        book.shelf = "currentlyReading";
+      } else if (wantToReadIds.includes(book.id)) {
+        book.shelf = "wantToRead";
+      } else if (readIds.includes(book.id)) {
+        book.shelf = "read";
+      } else {
+        book.shelf = "none";
+      }
+      return book;
+    })
+    setBooks(books)
   }
 
   return (

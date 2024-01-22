@@ -7,11 +7,7 @@ const Book = ({ book, onChangeShelf }) => {
   }
 
   if (!book.imageLinks) {
-    book.imageLinks.thumbnail = "";
-  }
-
-  if (!book.shelf) {
-    book.shelf = "None";
+    book.imageLinks = {"thumbnail": ""}
   }
 
   return (

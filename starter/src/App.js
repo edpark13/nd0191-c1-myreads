@@ -51,7 +51,7 @@ function App() {
 
   const removeBookFromShelf = (book) => {
     const shelfStr = book.shelf;
-    if (!shelfStr) {
+    if (shelfStr === "none") {
       return;
     }
     const filteredShelf = getShelf(shelfStr).filter((b) => b.id !== book.id)
